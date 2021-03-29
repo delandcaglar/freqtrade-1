@@ -534,6 +534,7 @@ class LocalTrade():
             If rate is not set self.close_rate will be used
         :return:  profit in stake currency as float
         """
+        #TODO: Calculate custom buy and sell rate into this
         close_trade_value = self.calc_close_trade_value(
             rate=(rate or self.close_rate),
             fee=(fee or self.fee_close)
@@ -550,6 +551,7 @@ class LocalTrade():
         :param fee: fee to use on the close rate (optional).
         :return: profit ratio as float
         """
+        #TODO: Calculate custom buy and sell rate into this
         close_trade_value = self.calc_close_trade_value(
             rate=(rate or self.close_rate),
             fee=(fee or self.fee_close)

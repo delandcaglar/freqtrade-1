@@ -379,6 +379,8 @@ def test_stop_loss_reached(default_conf, fee, profit, adjusted, expected, traili
 
     strategy.custom_stoploss = original_stopvalue
 
+#TODO Add custom buy and sell rate tests
+
 
 def test_analyze_ticker_default(ohlcv_history, mocker, caplog) -> None:
     caplog.set_level(logging.DEBUG)

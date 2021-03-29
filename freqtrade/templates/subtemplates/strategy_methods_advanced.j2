@@ -36,6 +36,44 @@ def custom_stoploss(self, pair: str, trade: 'Trade', current_time: 'datetime', c
     """
     return self.stoploss
 
+def custom_buy_rate(self, pair: str, trade: Trade, current_time: datetime, current_rate: float,
+                        current_profit: float, **kwargs) -> float:
+    #TODO: Can't figure out how this should operate, as there isn't a default buy rate
+    """
+    Custom buy rate logic, returning the new buy rate.
+
+    When not implemented by a strategy, returns False
+    Only called when use_custom_buy_rate is set to True.
+
+    :param pair: Pair that's currently analyzed
+    :param trade: trade object.
+    :param current_time: datetime object, containing the current datetime
+    :param current_rate: Rate, calculated based on pricing settings in ask_strategy.
+    :param current_profit: Current profit (as ratio), calculated based on current_rate.
+    :param **kwargs: Ensure to keep this here so updates to this won't break your strategy.
+    :return float: New stoploss value, relative to the currentrate
+    """
+    return False
+
+def custom_sell_rate(self, pair: str, trade: Trade, current_time: datetime, current_rate: float,
+                    current_profit: float, **kwargs) -> float:
+    #TODO: Can't figure out how this should operate, as there isn't a default buy rate
+    """
+    Custom sell rate logic, returning the new sell rate.
+
+    When not implemented by a strategy, returns False
+    Only called when use_custom_sell_rate is set to True.
+
+    :param pair: Pair that's currently analyzed
+    :param trade: trade object.
+    :param current_time: datetime object, containing the current datetime
+    :param current_rate: Rate, calculated based on pricing settings in ask_strategy.
+    :param current_profit: Current profit (as ratio), calculated based on current_rate.
+    :param **kwargs: Ensure to keep this here so updates to this won't break your strategy.
+    :return float: New stoploss value, relative to the currentrate
+    """
+    return False
+
 def confirm_trade_entry(self, pair: str, order_type: str, amount: float, rate: float,
                         time_in_force: str, **kwargs) -> bool:
     """

@@ -409,7 +409,9 @@ class FreqtradeBot(LoggingMixin):
                 return rate
 
         bid_strategy = self.config.get('bid_strategy', {})
-        if 'use_order_book' in bid_strategy and bid_strategy.get('use_order_book', False):
+        if 'use_custom_buy_rate' in bid_strategy and bid_strategy.get('use_custom_buy_rate', True):
+            return self.strategy.custom_buy_rate
+        elif 'use_order_book' in bid_strategy and bid_strategy.get('use_order_book', False):
             logger.info(
                 f"Getting price from order book {bid_strategy['price_side'].capitalize()} side."
             )
@@ -734,6 +736,8 @@ class FreqtradeBot(LoggingMixin):
                 return rate
 
         ask_strategy = self.config.get('ask_strategy', {})
+        if ask_strategy.get('use_custom_sell_rate', False):
+            return self.strategy.custom_sell_rate
         if ask_strategy.get('use_order_book', False):
             # This code is only used for notifications, selling uses the generator directly
             logger.info(

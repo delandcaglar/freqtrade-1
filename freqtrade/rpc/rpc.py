@@ -113,6 +113,7 @@ class RPC:
 
     @staticmethod
     def _rpc_show_config(config, botstate: Union[State, str]) -> Dict[str, Any]:
+        #TODO: Check that you didn't miss something here
         """
         Return a dict of config options.
         Explicitly does NOT return the full config to avoid leakage of sensitive

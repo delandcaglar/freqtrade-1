@@ -1467,6 +1467,7 @@ def test_handle_stoploss_on_exchange_custom_stop(mocker, default_conf, fee,
 
     # enabling TSL
     default_conf['use_custom_stoploss'] = True
+    #TODO: Add custom buy and sell rate tests
 
     # disabling ROI
     default_conf['minimal_roi']['0'] = 999999999

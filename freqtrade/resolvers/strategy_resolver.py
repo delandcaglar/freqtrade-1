@@ -77,6 +77,8 @@ class StrategyResolver(IResolver):
                       ("protections",                     None,        None),
                       ("startup_candle_count",            None,        None),
                       ("unfilledtimeout",                 None,        None),
+                      ("use_custom_buy_rate",             False,        'bid_strategy'),
+                      ("use_custom_sell_rate",            False,        'ask_strategy'),
                       ("use_sell_signal",                 True,        'ask_strategy'),
                       ("sell_profit_only",                False,       'ask_strategy'),
                       ("ignore_roi_if_buy_signal",        False,       'ask_strategy'),

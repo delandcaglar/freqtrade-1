@@ -147,6 +147,8 @@ Values set in the configuration file always overwrite values set in the strategy
 * `unfilledtimeout`
 * `disable_dataframe_checks`
 * `protections`
+* `use_custom_buy_rate` (bid strategy)
+* `use_custom_sell_rate` (ask strategy)
 * `use_sell_signal` (ask_strategy)
 * `sell_profit_only` (ask_strategy)
 * `sell_profit_offset` (ask_strategy)

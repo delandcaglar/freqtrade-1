@@ -136,6 +136,10 @@ class IStrategy(ABC):
     # Definition of plot_config. See plotting documentation for more details.
     plot_config: Dict = {}
 
+    #Buy and Sell rates
+    use_custom_buy_rate = False
+    use_custom_sell_rate = False
+
     def __init__(self, config: dict) -> None:
         self.config = config
         # Dict to determine if analysis is necessary
@@ -282,6 +286,44 @@ class IStrategy(ABC):
         :return float: New stoploss value, relative to the currentrate
         """
         return self.stoploss
+
+    def custom_buy_rate(self, pair: str, trade: Trade, current_time: datetime, current_rate: float,
+                        current_profit: float, **kwargs) -> float:
+        #TODO: Can't figure out how this should operate, as there isn't a default buy rate
+        """
+        Custom buy rate logic, returning the new buy rate.
+
+        When not implemented by a strategy, returns False
+        Only called when use_custom_buy_rate is set to True.
+
+        :param pair: Pair that's currently analyzed
+        :param trade: trade object.
+        :param current_time: datetime object, containing the current datetime
+        :param current_rate: Rate, calculated based on pricing settings in ask_strategy.
+        :param current_profit: Current profit (as ratio), calculated based on current_rate.
+        :param **kwargs: Ensure to keep this here so updates to this won't break your strategy.
+        :return float: New stoploss value, relative to the currentrate
+        """
+        return False
+
+    def custom_sell_rate(self, pair: str, trade: Trade, current_time: datetime, current_rate: float,
+                        current_profit: float, **kwargs) -> float:
+        #TODO: Can't figure out how this should operate, as there isn't a default buy rate
+        """
+        Custom sell rate logic, returning the new sell rate.
+
+        When not implemented by a strategy, returns False
+        Only called when use_custom_sell_rate is set to True.
+
+        :param pair: Pair that's currently analyzed
+        :param trade: trade object.
+        :param current_time: datetime object, containing the current datetime
+        :param current_rate: Rate, calculated based on pricing settings in ask_strategy.
+        :param current_profit: Current profit (as ratio), calculated based on current_rate.
+        :param **kwargs: Ensure to keep this here so updates to this won't break your strategy.
+        :return float: New stoploss value, relative to the currentrate
+        """
+        return False
 
     def informative_pairs(self) -> ListPairsWithTimeframes:
         """
@@ -576,6 +618,7 @@ class IStrategy(ABC):
         trade.adjust_stop_loss(trade.open_rate, stop_loss_value, initial=True)
 
         if self.use_custom_stoploss:
+            #TODO: Should maybe make something equivelent to buy and sell strategy? Should probably wrap buy and sell into strategy safe wrapper
             stop_loss_value = strategy_safe_wrapper(self.custom_stoploss, default_retval=None
                                                     )(pair=trade.pair, trade=trade,
                                                       current_time=current_time,
