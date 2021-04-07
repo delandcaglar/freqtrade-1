@@ -137,8 +137,8 @@ class IStrategy(ABC):
     plot_config: Dict = {}
 
     #Buy and Sell rates
-    use_custom_buy_rate = False
-    use_custom_sell_rate = False
+    use_custom_buy_rate: bool = False
+    use_custom_sell_rate: bool = False
 
     def __init__(self, config: dict) -> None:
         self.config = config
@@ -287,9 +287,7 @@ class IStrategy(ABC):
         """
         return self.stoploss
 
-    def custom_buy_rate(self, pair: str, trade: Trade, current_time: datetime, current_rate: float,
-                        current_profit: float, **kwargs) -> float:
-        #TODO: Can't figure out how this should operate, as there isn't a default buy rate
+    def custom_buy_rate(self, pair: str, current_time: datetime, **kwargs) -> float:
         """
         Custom buy rate logic, returning the new buy rate.
 
@@ -304,11 +302,9 @@ class IStrategy(ABC):
         :param **kwargs: Ensure to keep this here so updates to this won't break your strategy.
         :return float: New stoploss value, relative to the currentrate
         """
-        return False
+        return None
 
-    def custom_sell_rate(self, pair: str, trade: Trade, current_time: datetime, current_rate: float,
-                        current_profit: float, **kwargs) -> float:
-        #TODO: Can't figure out how this should operate, as there isn't a default buy rate
+    def custom_sell_rate(self, pair: str, current_time: datetime, **kwargs) -> float:
         """
         Custom sell rate logic, returning the new sell rate.
 
@@ -323,7 +319,7 @@ class IStrategy(ABC):
         :param **kwargs: Ensure to keep this here so updates to this won't break your strategy.
         :return float: New stoploss value, relative to the currentrate
         """
-        return False
+        return None
 
     def informative_pairs(self) -> ListPairsWithTimeframes:
         """

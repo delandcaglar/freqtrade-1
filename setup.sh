@@ -25,13 +25,13 @@ function check_installed_python() {
         return
     fi
 
-    which python3.9
-    if [ $? -eq 0 ]; then
-        echo "using Python 3.9"
-        PYTHON=python3.9
-        check_installed_pip
-        return
-    fi
+#    which python3.9
+#    if [ $? -eq 0 ]; then
+#        echo "using Python 3.9"
+#        PYTHON=python3.9
+#        check_installed_pip
+#        return
+#    fi
 
     which python3.7
     if [ $? -eq 0 ]; then

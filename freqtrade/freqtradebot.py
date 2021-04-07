@@ -410,7 +410,7 @@ class FreqtradeBot(LoggingMixin):
 
         bid_strategy = self.config.get('bid_strategy', {})
         if 'use_custom_buy_rate' in bid_strategy and bid_strategy.get('use_custom_buy_rate', True):
-            return self.strategy.custom_buy_rate
+            return strategy_safe_wrapper(self.strategy.custom_buy_rate, default_retval=None)(pair=pair, current_time=date)
         elif 'use_order_book' in bid_strategy and bid_strategy.get('use_order_book', False):
             logger.info(
                 f"Getting price from order book {bid_strategy['price_side'].capitalize()} side."
@@ -437,6 +437,7 @@ class FreqtradeBot(LoggingMixin):
                 balance = bid_strategy['ask_last_balance']
                 ticker_rate = ticker_rate + balance * (ticker['last'] - ticker_rate)
             used_rate = ticker_rate
+            
 
         self._buy_rate_cache[pair] = used_rate
 
@@ -736,8 +737,9 @@ class FreqtradeBot(LoggingMixin):
                 return rate
 
         ask_strategy = self.config.get('ask_strategy', {})
-        if ask_strategy.get('use_custom_sell_rate', False):
-            return self.strategy.custom_sell_rate
+        if 'use_custom_sell_rate' in ask_strategy and ask_strategy.get('use_custom_sell_rate', True):
+            return strategy_safe_wrapper(self.strategy.custom_sell_rate, default_retval=None)(pair=pair, current_time=datetime.now(timezone.utc))
+
         if ask_strategy.get('use_order_book', False):
             # This code is only used for notifications, selling uses the generator directly
             logger.info(
