@@ -287,7 +287,7 @@ class IStrategy(ABC):
         """
         return self.stoploss
 
-    def custom_buy_rate(self, pair: str, current_time: datetime, **kwargs) -> float:
+    def custom_buy_rate(self, pair: str, trade: Trade, current_time: datetime, **kwargs) -> float:
         """
         Custom buy rate logic, returning the new buy rate.
 
@@ -304,7 +304,7 @@ class IStrategy(ABC):
         """
         return None
 
-    def custom_sell_rate(self, pair: str, current_time: datetime, **kwargs) -> float:
+    def custom_sell_rate(self, pair: str, trade: Trade, current_time: datetime, **kwargs) -> float:
         """
         Custom sell rate logic, returning the new sell rate.
 
